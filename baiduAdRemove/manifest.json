@@ -1,15 +1,29 @@
-{
-  "name": "FukingBaiduAds",
-  "version": "0.0.1",
-  "manifest_version": 2,
-  "author": "everlose",
-  "description": "Remove ads from baidu search result pages",
-  "homepage_url": "https://github.com/everlose/chrome-extentions",
-  "permissions": ["http://www.baidu.com/*", "https://www.baidu.com/*"],
+﻿{
+  "name": "百度搜索页屏蔽插件",
+  "version": "2.0",
+  "description": "去除百度搜索页的广告",
   "content_scripts": [
     {
-      "matches": ["http://www.baidu.com/*", "https://www.baidu.com/*"],
-      "js": ["remove.js"]
+      "matches": [
+        "https://*.baidu.com/*",
+        "http://*.baidu.com/*"
+      ],
+      "css": ["./css/style.css"],
+      "run_at": "document_start"
     }
-  ]
+  ],
+  "permissions": [
+    "http://*.baidu.com/*",
+    "https://*.baidu.com/*"
+  ],
+  "icons": {
+    "16": "./pic/icon_16.png",
+    "48": "./pic/icon_48.png",
+    "128": "./pic/icon_128.png"
+  },
+  "browser_action": {
+    "name": "百度搜索广告屏蔽",
+    "default_icon": "./pic/icon_128.png"
+  },
+  "manifest_version": 2
 }

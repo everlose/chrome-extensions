@@ -1,0 +1,109 @@
+/*搜索*/
+#content_left > div[style^="display"],
+.result-op.xpath-log,
+.rrecom-btn-parent,
+.to_tieba{
+	height: 0px !important;
+	overflow: hidden !important;
+	padding: 0px !important;
+	margin: 0px !important;
+	color: #ffffff !important;
+}
+.result-op.c-container.xpath-log{
+	height: auto !important;
+	color: #000000 !important;
+}
+
+/*图片*/
+#ec_im_container,
+#con-ar+div,
+#content_right td > div:first-child,
+.fcImgli,
+#content_right,
+#appLauncher,
+.hideTags_search #topInfoBar,
+#pullRS,
+#back-to-top,
+.hd-paopao,
+.global-logged .footer {
+	display: none !important;
+}
+
+/*贴吧*/
+.widget-ads,
+.widget-ads ~ div,
+#thread_list > li:not([class^=" j_thread_list"]),
+.aside > div > div > div[id$="ad"],
+.p_postlist > div:not([class^="l_post"]),
+.j_thread_list:not([data-field]),
+#j_p_postlist > .l_post_bright:not([data-field]),
+.firework-wrap,
+.editor_wrap_bright  + #footer,
+/*音乐*/
+.ad-banner,
+.nav-banner.nav-ads,
+.search-result-container .mp3logo,
+.music-foot,
+.userbar .bd-feedback,
+.userbar .bd-feedback + .line,
+#adMainTopRight,
+.mobile-guide-pc .css-icon-pc,
+/*视频*/
+#search-union-ad,
+.text-advertise,
+/*百科*/
+.bottom-promotion,
+#side_box_unionAd,
+#side-share,
+.wgt-footer-main,
+/*文库*/
+#fengchaoad,
+.baichuan-slot,
+#docBubble,
+.mod.lastcell-dialog,
+/*新闻*/
+#ecomAdDiv_3,
+#ecomAdDiv_1,
+#gotoPage,
+#rs,
+.wrapper_l #foot,
+/*知道日报*/
+.aside-wp .aside-union-ad,
+/*百度经验*/
+.aside-pro-container .aside-ads-container,
+.main-content-bottom .bottom-ads-container,
+/*知道*/
+#union-search_bottom,
+.layout-wrap .left-top-ads,
+.layout-wrap #union-qbbanner,
+#bottom_container,
+#container .hint_common_restop,
+#wrapper_wrapper #foot,
+#qb-side #union-asplu,
+#qb-side #union-qbrightdown,
+.newsearch .aside.fixheight,
+#qbleftdown-container,
+#footer,
+.wgt-footer-new .footer-new,
+/*home*/
+#ftCon {
+	display: none !important;
+	height: 0px;
+	overflow: hidden;
+}
+/*贴吧*/
+#pb_adbanner {
+	position: absolute;
+	top: -9999px;
+}
+#thread_list > li[class^="thread_top_list_folder"] {
+	display: block !important;
+	height: auto !important;
+	overflow: auto !important;
+}
+
+/*贴吧*/
+#j_p_postlist{
+	height: auto !important;
+	display: block !important;
+}
