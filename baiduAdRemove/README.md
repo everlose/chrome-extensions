@@ -7,4 +7,4 @@
 
 
 ### 2016年9月18日
-作者找到了一个用css隐藏广告元素的办法，试了一下颇具成效。
+作者找到了一个用css隐藏广告元素的办法，试了一下颇具成效。感谢unclehking的[baiduAdfinisher](https://github.com/unclehking/baiduAdfinisher)让我找到了灵感
