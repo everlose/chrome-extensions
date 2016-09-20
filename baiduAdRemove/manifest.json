@@ -2,6 +2,7 @@
   "name": "百度搜索页屏蔽插件",
   "version": "2.0",
   "description": "去除百度搜索页的广告",
+  "homepage_url": "https://github.com/everlose/chrome-extentions",
   "content_scripts": [
     {
       "matches": [
