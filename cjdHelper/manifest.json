@@ -1,0 +1,19 @@
+{
+  "name": "c吃几顿助手",
+  "version": "1.0",
+  "description": "自动订餐",
+  "homepage_url": "https://github.com/everlose/chrome-extentions",
+  "permissions": [
+    "http://wos.chijidun.com/",
+    "notifications"
+  ],
+  "browser_action": {
+    "default_popup": "./html/popup.html",
+    "default_title": "吃几顿助手"
+  },
+  "background": {
+    "page": "./html/background.html",
+    "persistent": false
+  },
+  "manifest_version": 2
+}
