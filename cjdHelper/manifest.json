@@ -1,7 +1,7 @@
 {
-  "name": "c吃几顿助手",
+  "name": "吃几顿助手",
   "version": "1.0",
-  "description": "自动订餐",
+  "description": "每天的上午9点到下午14点自动触发订餐动作",
   "homepage_url": "https://github.com/everlose/chrome-extentions",
   "permissions": [
     "http://wos.chijidun.com/",
@@ -11,8 +11,13 @@
     "default_popup": "./html/popup.html",
     "default_title": "吃几顿助手"
   },
+  "icons": {
+    "128": "./pic/128.png",
+    "16": "./pic/16.png",
+    "48": "./pic/48.png"
+  },
   "background": {
-    "page": "./html/background.html",
+    "scripts": ["./js/jquery.js", "./js/background.js"],
     "persistent": false
   },
   "manifest_version": 2
