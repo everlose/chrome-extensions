@@ -1,4 +1,4 @@
-//var count = 0;
+'use strict';
 
 var console = chrome.extension.getBackgroundPage().console;
 
@@ -141,32 +141,19 @@ var order = function (date) {
     });
 };
 
-
 var haveOrder; //今天是否已有订单，值为一个字符串代表日期
-var gotoOrderFn = function () {
-    var date = new Date();
-    var hour = date.getHours();
-    var day = parseTime(date.getTime(), 'YYYY-MM-DD');
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
-    console.log('吃几顿助手 now working... hour = ' + hour + ', day = ' + day + 
-        ', haveOrder = ' + haveOrder);
+    if(tab.url != undefined && changeInfo.status == 'complete'){
+        var date = new Date();
+        var hour = date.getHours();
+        var day = parseTime(date.getTime(), 'YYYY-MM-DD');
+        console.log(haveOrder);
+        if (hour > 9 && hour < 14 && day !== haveOrder) {
 
-    if (hour > 9 && hour < 14 && day !== haveOrder) {
-        order(day);
+            order(day);
 
-        //点过了餐的话，就12小时后发动检测；43200000毫秒。先这样，看看会不会啥问题吧
-        setTimeout(function () {
-            gotoOrderFn();
-        }, 43200000);
-
-    } else {
-        //半小时发动一次检测；1800000毫秒
-        setTimeout(function () {
-            gotoOrderFn();
-        }, 1800000);
+        }
     }
-};
-
-gotoOrderFn();
-
+});
 

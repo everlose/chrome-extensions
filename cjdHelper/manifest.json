@@ -5,7 +5,8 @@
   "homepage_url": "https://github.com/everlose/chrome-extentions",
   "permissions": [
     "http://wos.chijidun.com/",
-    "notifications"
+    "notifications",
+    "tabs"
   ],
   "browser_action": {
     "default_popup": "./html/popup.html",
