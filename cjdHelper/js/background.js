@@ -86,7 +86,8 @@ var order = function (date) {
     .then(function (json) {
         if (json.data.order && json.data.order.id) {
             orderId = json.data.order.id;
-            haveOrder = date;
+            window.localStorage.setItem('cjdOrderDate', date);
+            window.localStorage.setItem('cjdOrderMenu', json.data.order.menus);
             return $.Deferred().reject('已有订单');
         } else {
             var $members = $(json.data.members).find('.nav-item');
@@ -95,7 +96,12 @@ var order = function (date) {
                 var $dom = $(v);
                 shops[$dom.text()] = $dom.data('id');
             });
-            shopName = '嘿尔社';
+            var keys = Object.keys(shops);
+            if (keys.indexOf('嘿尔社') > -1) {
+                shopName = '嘿尔社';
+            } else {
+                shopName = keys[0];
+            }
             return getMenus(shops[shopName], date);
         }
         
@@ -110,8 +116,19 @@ var order = function (date) {
             var title = $dom.find('.title').text();
             menu[title] = $dom.data('id');
         });
-        menuName = Object.keys(menu)[0];
-        return saveOrder(menu[menuName], date);
+
+        var menuKey = Object.keys(menu);
+        for (var i in menu) {
+            //先大排，没有再去找老司机和球球
+            if (menu[i] === 15407 || i.indexOf('老司机带你飞') > -1 ||
+                i.indexOf('球球大作战') > -1) {
+
+                menuName = i;
+                return saveOrder(menu[i], date);
+            }
+        }
+        menuName = menuKey[0];
+        return saveOrder(menu[menuKey[0]], date);
     }, function (json) {
         console.log(json);
     })
@@ -119,7 +136,8 @@ var order = function (date) {
         //notification
         if (+json.status === 1) {
             orderId = json.result;
-            haveOrder = date;
+            window.localStorage.setItem('cjdOrderDate', date)
+            window.localStorage.setItem('cjdOrderMenu', menuName);
             var notification = new Notification('恭喜你订餐成功', {
                 body: '你订了' + shopName + '的' + menuName,
                 icon: 'http://img.souche.com/20160126/png/8b99c8a30b73ff4edba7b69ec60c3b37.png'
@@ -141,15 +159,17 @@ var order = function (date) {
     });
 };
 
-var haveOrder; //今天是否已有订单，值为一个字符串代表日期
+ 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
     if(tab.url != undefined && changeInfo.status == 'complete'){
         var date = new Date();
         var hour = date.getHours();
         var day = parseTime(date.getTime(), 'YYYY-MM-DD');
-        console.log(haveOrder);
-        if (hour > 9 && hour < 14 && day !== haveOrder) {
+        //检查今天是否已有订单用，值为一个字符串代表日期
+        var orderDate = window.localStorage.getItem('cjdOrderDate');
+        console.log(orderDate);
+        if (hour > 9 && hour < 14 && day !== orderDate) {
 
             order(day);
 
