@@ -168,8 +168,8 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         var day = parseTime(date.getTime(), 'YYYY-MM-DD');
         //检查今天是否已有订单用，值为一个字符串代表日期
         var orderDate = window.localStorage.getItem('cjdOrderDate');
-        console.log(orderDate);
-        if (hour > 9 && hour < 14 && day !== orderDate &&
+        console.log('orderDate:' + orderDate + ' hour:' + hour + ' weekDay:' + date.getDay());
+        if (hour >= 9 && hour <= 14 && day !== orderDate &&
             date.getDay() !== 0 && date.getDay() !== 6) {
 
             order(day);
