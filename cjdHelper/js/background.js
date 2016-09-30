@@ -150,6 +150,8 @@ var order = function (date) {
                 body: '点击这里手动订菜吧',
                 icon: 'http://img.souche.com/20160126/png/8b99c8a30b73ff4edba7b69ec60c3b37.png'
             });
+            window.localStorage.setItem('cjdOrderDate', date)
+            window.localStorage.setItem('cjdOrderMenu', '暂无订单');
             notification.onclick = function() {
                 window.open('http://wos.chijidun.com/order/index.html')
             };
