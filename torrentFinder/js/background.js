@@ -12,8 +12,6 @@ var ajax = function (url) {
 
     //return promise
     return new Promise(function (resolve, reject) {
-        //onload are executed just after the sync request is comple，
-        //please use 'onreadystatechange' if need support IE9-
         xhr.onload = function () {
             if (xhr.status === 200) {
                 resolve(xhr.response);
@@ -30,7 +28,7 @@ var getResourceUrl = function (id) {
 };
 
 var getMagnet = function (path) {
-    return ajax('http://bt2.bt87.cc/' + path);
+    return ajax('http://bt2.bt87.cc' + path);
 };
 
 var isLoading = false;
@@ -40,24 +38,25 @@ var start = function (date) {
 
     getResourceUrl(torrentId)
     .then(function (json) {
-        var aReg = /(?!<a class="title".* href=")\/\w+\.html(?=">)/;
+        var aReg = /(?!<a class="title".* href=")\/\w+\.html(?=">)/g;
         var res = json.match(aReg);
         if (res) {
-            return getMagnet(res[0]);
+            return Promise.all([getMagnet(res[0]), getMagnet(res[1]), getMagnet(res[2])]);
         } else {
             Promise.reject('can not match aReg');
         }
         
     }, function () {
         Promise.reject('getResourceUrl failed')
-    }).then(function (json) {
-        window.result = json;
+    }).then(function (resArr) {
         var magnetReg = /magnet:\??[^"|<]+/;
-        var res = json.match(magnetReg);
+        var res = '';
+        resArr.forEach(function (v, k) {
+            res += v.match(magnetReg)[0] + '，';
+        });
         if (res) {
-            console.log(res[0]);
-            window.localStorage.setItem('torrentFinderSearchTag', +searchId + 1);
-            window.localStorage.setItem('torrentFinder-sky angle vol.' + torrentId, res[0]);
+            window.localStorage.setItem('torrentFinderSearchTag', + searchId + 1);
+            window.localStorage.setItem('torrentFinder-sky angle vol.' + torrentId, res);
             isLoading = false;
         } else {
             Promise.reject('can not match magnetReg');
@@ -66,7 +65,6 @@ var start = function (date) {
         console.log(res);
         isLoading = false;
     });
-    
 };
 
 
