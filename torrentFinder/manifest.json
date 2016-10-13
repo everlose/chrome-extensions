@@ -1,0 +1,25 @@
+{
+  "name": "种子搜寻脚本",
+  "version": "1.0",
+  "description": "会去torrentkitty爬取磁力链接",
+  "homepage_url": "https://github.com/everlose/chrome-extentions",
+  "permissions": [
+    "http://bt2.bt87.cc/",
+    "tabs",
+    "storage"
+  ],
+  "browser_action": {
+    "default_popup": "./html/popup.html",
+    "default_title": "种子搜寻脚本"
+  },
+  "icons": {
+    "128": "./pic/128.png",
+    "16": "./pic/16.png",
+    "48": "./pic/48.png"
+  },
+  "background": {
+    "scripts": ["./js/background.js"],
+    "persistent": false
+  },
+  "manifest_version": 2
+}
