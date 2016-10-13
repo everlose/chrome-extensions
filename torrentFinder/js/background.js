@@ -24,7 +24,7 @@ var ajax = function (url) {
 };
 
 var getResourceUrl = function (id) {
-    return ajax('http://bt2.bt87.cc/' + 'search/sky%20angel%20vol.' + id + '_ctime_1.html');
+    return ajax('http://bt2.bt87.cc/' + 'search/SMDV-' + id + '_ctime_1.html');
 };
 
 var getMagnet = function (path) {
@@ -56,7 +56,7 @@ var start = function (date) {
         });
         if (res) {
             window.localStorage.setItem('torrentFinderSearchTag', + searchId + 1);
-            window.localStorage.setItem('torrentFinder-sky angle vol.' + torrentId, res);
+            window.localStorage.setItem('torrentFinder-SMDV-' + torrentId, res);
             isLoading = false;
         } else {
             Promise.reject('can not match magnetReg');
