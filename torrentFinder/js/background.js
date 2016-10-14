@@ -42,6 +42,7 @@ var start = function (date) {
         // var aReg = /(?!<a class="title".* href=")\/\w+\.html(?=">)/g;
         // var res = json.match(aReg);
         // var reqArr = [];
+
         var reqArr = [];
         var dom = document.createElement('div');
         var ul = json.match(/<ul class="media-list media-list-set">[\s\S]*<\/ul>/);
@@ -56,47 +57,42 @@ var start = function (date) {
                 var size = v.querySelector('.label.label-warning').innerHTML;
                 //小于4G则允许去获取
                 if (size && size.indexOf('GB') > -1 && parseInt(size) < 4 || 
-                    size && size.indexOf('MB') > -1) {
+                    size && size.indexOf('MB') > -1 && parseInt(size) > 700) {
                     torrentSizeArr.push(size);
                     reqArr.push(getMagnet(v.querySelector('.title').getAttribute('href')));
                 }
             });
-            return Promise.all(reqArr);
+            if (reqArr.length > 0) {
+                return Promise.all(reqArr);
+            } else {
+                //当第二次请求正常或者第一次请求没有匹配到合适的资源，计数+1。
+                window.localStorage.setItem('torrentFinderSearchTag', + searchId + 1);
+                return Promise.reject('can not match suitable resource');
+            }
+            
         } else {
-            Promise.reject('can not match ul');
+            return Promise.reject('can not match ul dom');
         }
         
-        // if (res && res[0]) {
-        //     reqArr.push(getMagnet(res[0]));
-        // }
-        // if (res && res[1]) {
-        //     reqArr.push(getMagnet(res[1]));
-        // }
-        // if (res && res[2]) {
-        //     reqArr.push(getMagnet(res[2]));
-        // }
-
-        // if (res) {
-        //     return Promise.all(reqArr);
-        // } else {
-        //     Promise.reject('can not match aReg');
-        // }
-        
     }, function () {
-        Promise.reject('getResourceUrl failed');
+        return Promise.reject('getResourceUrl failed');
     }).then(function (resArr) {
         isLoading = false;
+
+        //查找magnet磁力链接并塞进localStorage里。
         var magnetReg = /magnet:\??[^"|<]+/;
         var res = '';
         resArr.forEach(function (v, k) {
             res += torrentSizeArr[k] + '：' + v.match(magnetReg)[0] + '；';
         });
         if (res) {
-            window.localStorage.setItem('torrentFinderSearchTag', + searchId + 1);
             window.localStorage.setItem('torrentFinder-' + torrentName + torrentId, res);
         } else {
-            Promise.reject('can not match magnetReg');
+            console.log('can not match magnetReg');
         }
+
+        //当第二次请求正常或者第一次请求没有匹配到合适的资源，计数+1。
+        window.localStorage.setItem('torrentFinderSearchTag', + searchId + 1);
     }, function (res) {
         console.log(res);
         isLoading = false;
