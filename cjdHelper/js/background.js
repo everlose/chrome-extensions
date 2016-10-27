@@ -119,12 +119,12 @@ var order = function (date) {
 
         var menuKey = Object.keys(menu);
         for (var i in menu) {
-            //先大排，没有再去找老司机和球球
-            if (menu[i] === 15407 || i.indexOf('老司机带你飞') > -1 ||
-                i.indexOf('球球大作战') > -1) {
-
+            //正向匹配大排选择，反向匹配沙拉，碰见沙拉则过滤。
+            if (menu[i] === 15407) {
                 menuName = i;
                 return saveOrder(menu[i], date);
+            } else if (i.indexOf('沙拉') > -1) {
+                menuKey.splice(i, 1);
             }
         }
         menuName = menuKey[0];
