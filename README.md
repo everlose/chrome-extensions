@@ -8,7 +8,7 @@
 
 ## torrentFinder
 
-一个种子搜索脚本的chrome插件版，笔者已经用node实现，所以这个版本将不会在维护
+一个种子搜索脚本的chrome插件版，笔者已经用node实现，地址见（https://github.com/everlose/nodePractice/crawler），所以这个版本将不会在维护
 
 ## 安装
 
@@ -23,3 +23,4 @@
 * 一些接口的文档，改变浏览器外观，与浏览器交互，部署打包等，[开发指南](http://open.chrome.360.cn/extension_dev/devguide.html)
 * 一些示例，[示例代码](http://open.chrome.360.cn/extension_dev/samples.html)
 * [Manifest文件配置](http://open.chrome.360.cn/extension_dev/manifest.html)
+* [图灵社区Chrome扩展及应用开发电子书](http://www.ituring.com.cn/minibook/950)
