@@ -125,7 +125,7 @@ var order = function (date) {
 
         var menuKey = Object.keys(menu);
         for (var i in menu) {
-            //正向匹配校园大排和蛋黄子排选择，反向匹配沙拉，碰见沙拉则过滤。
+            //正向匹配校园大排和蛋黄仔排选择，反向匹配沙拉，碰见沙拉则过滤。
             if (menu[i] === 15407 || menu[i] === 16588) {
                 menuName = i;
                 return saveOrder(menu[i], date);
