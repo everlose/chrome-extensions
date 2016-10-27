@@ -8,7 +8,7 @@
 
 ## torrentFinder
 
-一个种子搜索脚本的chrome插件版，笔者已经用node实现，地址见（https://github.com/everlose/nodePractice/crawler），所以这个版本将不会在维护
+一个种子搜索脚本的chrome插件版，笔者已经用node实现，地址见（https://github.com/everlose/nodePractice/tree/master/crawler），所以这个版本将不会在维护
 
 ## 安装
 
