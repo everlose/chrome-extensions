@@ -102,16 +102,22 @@ var order = function (date) {
             } else {
                 shopName = keys[0];
             }
-            return getMenus(shops[shopName], date);
+            return $.when(getMenus(shops[shopName], date), getMenus(shops['元食'], date));
         }
         
     }, function (json) {
         console.log(json);
     })
-    .then(function (json) {
-        var $menu = $(json.data);
+    .then(function (json1, json2) {
+        var $menu1 = $(json1[0].data);
+        var $menu2 = $(json2[0].data);
         var menu = {};
-        $menu.each(function (k, v) {
+        $menu1.each(function (k, v) {
+            var $dom = $(v);
+            var title = $dom.find('.title').text();
+            menu[title] = $dom.data('id');
+        });
+        $menu2.each(function (k, v) {
             var $dom = $(v);
             var title = $dom.find('.title').text();
             menu[title] = $dom.data('id');
@@ -119,8 +125,8 @@ var order = function (date) {
 
         var menuKey = Object.keys(menu);
         for (var i in menu) {
-            //正向匹配大排选择，反向匹配沙拉，碰见沙拉则过滤。
-            if (menu[i] === 15407) {
+            //正向匹配校园大排和蛋黄子排选择，反向匹配沙拉，碰见沙拉则过滤。
+            if (menu[i] === 15407 || menu[i] === 16588) {
                 menuName = i;
                 return saveOrder(menu[i], date);
             } else if (i.indexOf('沙拉') > -1) {
