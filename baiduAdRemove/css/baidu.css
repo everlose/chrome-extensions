@@ -1,5 +1,6 @@
 /*搜索*/
 #content_left > div[style^="display"],
+#content_left > div[id="1"],
 .result-op.xpath-log,
 .rrecom-btn-parent,
 .to_tieba{
