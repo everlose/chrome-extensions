@@ -147,7 +147,7 @@ var order = function (date) {
             window.localStorage.setItem('cjdOrderDate', date)
             window.localStorage.setItem('cjdOrderMenu', menuName);
             var notification = new Notification('恭喜你订餐成功', {
-                body: '你订了' + shopName + '的' + menuName,
+                body: '你订了' + menuName,
                 icon: 'http://img.souche.com/20160126/png/8b99c8a30b73ff4edba7b69ec60c3b37.png'
             });
             notification.onclick = function() {
