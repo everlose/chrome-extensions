@@ -82,6 +82,10 @@ var deleteOrder = function (orderId) {
 var order = function (date) {
     var shopName, menuName, orderId;
 
+    //初始化匹配菜单与食品
+    shopName = window.localStorage.getItem('cjdReserveMenu') || '嘿尔社';
+    menuName = window.localStorage.getItem('cjdReserveFood') || '鸡';
+
     getShops(date)
     .then(function (json) {
         if (json.data.order && json.data.order.id) {
@@ -97,48 +101,63 @@ var order = function (date) {
                 shops[$dom.text()] = $dom.data('id');
             });
             var keys = Object.keys(shops);
-            if (keys.indexOf('嘿尔社') > -1) {
-                shopName = '嘿尔社';
-            } else {
+            if (keys.indexOf(shopName) === -1) {
                 shopName = keys[0];
             }
-            return $.when(getMenus(shops[shopName], date), getMenus(shops['元食'], date));
+
+            //return $.when(getMenus(shops[shopName], date));
+            return getMenus(shops[shopName], date);
         }
-        
     }, function (json) {
         console.log(json);
+        return json;
     })
-    .then(function (json1, json2) {
-        var $menu1 = $(json1[0].data);
-        var $menu2 = $(json2[0].data);
+    .then(function (json) {
         var menu = {};
-        $menu1.each(function (k, v) {
-            var $dom = $(v);
-            var title = $dom.find('.title').text();
-            menu[title] = $dom.data('id');
-        });
-        $menu2.each(function (k, v) {
-            var $dom = $(v);
-            var title = $dom.find('.title').text();
-            menu[title] = $dom.data('id');
-        });
+        //整合所有菜单里的菜品，塞进menu对象中.
+        if (arguments[1]) {
+            var arr = Array.prototype.slice.call(arguments);
+            arr.forEach(function (value, index) {
+                var $menu = $(value.data);
+                $menu.each(function (k, v) {
+                    var $dom = $(v);
+                    var title = $dom.find('.title').text();
+                    menu[title] = $dom.data('id');
+                });
+            })
+        } else {
+            var $menu = $(json.data);
+            $menu.each(function (k, v) {
+                var $dom = $(v);
+                var title = $dom.find('.title').text();
+                menu[title] = $dom.data('id');
+            });
+        }
 
+        //筛选过滤出喜欢的菜品，正向匹配输入的菜品和口蘑，球球，仔排；反向匹配沙拉。
         var menuKey = Object.keys(menu);
+        var isMatched = false;
         for (var i in menu) {
             //正向匹配校园大排和蛋黄仔排选择，反向匹配沙拉，碰见沙拉则过滤。
-            if (i.indexOf('蘑人') > -1 || i.indexOf('球球') > -1 ||
+            if (i.indexOf(menuName) > -1 || i.indexOf('蘑人') > -1 || i.indexOf('球球') > -1 ||
                 i.indexOf('蛋黄仔排') > -1) {
 
                 menuName = i;
-                return saveOrder(menu[i], date);
+                isMatched = true;
+                break;
             } else if (i.indexOf('沙拉') > -1) {
                 menuKey.splice(i, 1);
             }
         }
-        menuName = menuKey[0];
-        return saveOrder(menu[menuKey[0]], date);
+
+        //没有匹配到目标则取第一项。
+        if (!isMatched)  {
+            menuName = menuKey[0];
+        }
+        return saveOrder(menu[menuName], date);
     }, function (json) {
         console.log(json);
+        return json;
     })
     .then(function (json) {
         //notification

@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>吃几顿助手提示</title>
-	<style>
-		#cjd_tip {
-			color: green;
-		}
-		.div {
-			width: 400px;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <title>吃几顿助手提示</title>
+    <style>
+        #cjd_tip {
+            color: green;
+        }
+        .meal {
+            width: 400px;
+        }
+        .input {
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-	<div class="div">
-		此脚本自动替您订下的餐是：<span id="cjd_tip"></span>
-	</div>
-	<p>
-	需要注意的是，这个弹层仅仅只是说明了此脚本自动替您订下的餐，如果你去吃几顿页面更改了你订的餐，那么此弹层上显示的就与你实际的餐不一致。
-	</p>
-	<script src="../js/popup.js"></script>
+    <div class="meal">
+        此脚本自动替您订下的餐是：<span id="cjd_tip"></span>
+    </div>
+    <div class="input" id="menu">
+        输入匹配的菜单：<input type="text">
+    </div>
+    <div class="input" id="food">
+        输入匹配的菜名：<input type="text">
+    </div>
+    <p>
+    需要注意的是，这个弹层仅仅只是说明了此脚本自动替您订下的餐，如果你去吃几顿页面更改了你订的餐，那么此弹层上显示的就与你实际的餐不一致。
+    </p>
+    <script src="../js/popup.js"></script>
 </body>
 </html>
