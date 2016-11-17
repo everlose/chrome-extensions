@@ -13,6 +13,8 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             chrome.tabs.insertCSS(tabId, {file: "/css/baidu.css"});
         } else if (tab.url.match('csdn.net')) {
             chrome.tabs.insertCSS(tabId, {file: "/css/csdn.css"});
+        } else if (tab.url.match('bing.com')) {
+        	chrome.tabs.insertCSS(tabId, {file: "/css/bing.css"});
         }
     }
 });
