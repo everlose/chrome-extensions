@@ -8,13 +8,11 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
     if(tab.url != undefined && changeInfo.status == 'complete'){
 
-        // block all ads
-        if(tab.url.match('baidu.com')){
-            chrome.tabs.insertCSS(tabId, {file: "/css/baidu.css"});
-        } else if (tab.url.match('csdn.net')) {
-            chrome.tabs.insertCSS(tabId, {file: "/css/csdn.css"});
-        } else if (tab.url.match('bing.com')) {
-        	chrome.tabs.insertCSS(tabId, {file: "/css/bing.css"});
-        }
+        window.config.some(function (v, k) {
+            if (tab.url.match(v.path)) {
+                chrome.tabs.insertCSS(tabId, {file: '/css/' + v.css});
+                return true;
+            }
+        });
     }
 });
