@@ -1,4 +1,3 @@
-var console = chrome.extension.getBackgroundPage().console;
 window.onload = function () {
     var text = window.localStorage.getItem('cjdOrderMenu');
     if (!text) {
@@ -13,11 +12,9 @@ window.onload = function () {
     menu.value = menuValue;
     food.value = foodValue;
     menu.onchange = function () {
-        console.log(this.value);
         window.localStorage.setItem('cjdReserveMenu', this.value);
     };
     food.onchange = function () {
-        console.log(this.value);
         window.localStorage.setItem('cjdReserveFood', this.value);
     };
 }
