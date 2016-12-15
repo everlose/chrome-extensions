@@ -100,13 +100,21 @@ var order = function (date) {
                 var $dom = $(v);
                 shops[$dom.text()] = $dom.data('id');
             });
-            var keys = Object.keys(shops);
-            if (keys.indexOf(shopName) === -1) {
-                shopName = keys[0];
-            }
 
-            //return $.when(getMenus(shops[shopName], date));
-            return getMenus(shops[shopName], date);
+            //以逗号分隔店名匹配诸如嘿尔社，元食几家店。
+            var shopNames = shopName.split(';');
+            var promises = [];
+            var keys = Object.keys(shops);
+            shopNames.forEach(function (v, k) {
+                if (keys.indexOf(v) > -1) {
+                    promises.push(getMenus(shops[v], date));
+                }
+            });
+            if (promises.length === 0) {
+                promises.push(getMenus(shops[keys[0]], date));
+            }
+            return $.when(promises[0], promises[1], promises[2], promises[3]);
+            //return getMenus(shops[shopName], date);
         }
     }, function (json) {
         console.log(json);
@@ -118,13 +126,15 @@ var order = function (date) {
         if (arguments[1]) {
             var arr = Array.prototype.slice.call(arguments);
             arr.forEach(function (value, index) {
-                var $menu = $(value.data);
-                $menu.each(function (k, v) {
-                    var $dom = $(v);
-                    var title = $dom.find('.title').text();
-                    menu[title] = $dom.data('id');
-                });
-            })
+                if (value) {
+                    var $menu = $(value[0].data);
+                    $menu.each(function (k, v) {
+                        var $dom = $(v);
+                        var title = $dom.find('.title').text();
+                        menu[title] = $dom.data('id');
+                    });
+                }
+            });
         } else {
             var $menu = $(json.data);
             $menu.each(function (k, v) {
@@ -133,13 +143,27 @@ var order = function (date) {
                 menu[title] = $dom.data('id');
             });
         }
-
         //筛选过滤出喜欢的菜品，正向匹配输入的菜品和口蘑，球球，仔排；反向匹配沙拉。
         var menuKey = Object.keys(menu);
         var isMatched = false;
+        var menuNames = menuName.split(';');
+        menuNames.some(function (v, k) {
+            if (isMatched) {
+                return true;
+            }
+            for (var i in menu) {
+                //正向匹配校园大排和蛋黄仔排选择，反向匹配沙拉，碰见沙拉则过滤。
+                if (i.indexOf(v) > -1) {
+                    menuName = i;
+                    isMatched = true;
+                    break;
+                }
+            }
+        })
+        /*
         for (var i in menu) {
             //正向匹配校园大排和蛋黄仔排选择，反向匹配沙拉，碰见沙拉则过滤。
-            if (i.indexOf(menuName) > -1 || i.indexOf('蘑人') > -1 || i.indexOf('球球') > -1 ||
+            if (i.indexOf(v) > -1 || i.indexOf('蘑人') > -1 || i.indexOf('球球') > -1 ||
                 i.indexOf('蛋黄仔排') > -1) {
 
                 menuName = i;
@@ -149,7 +173,7 @@ var order = function (date) {
                 menuKey.splice(i, 1);
             }
         }
-
+        */
         //没有匹配到目标则取第一项。
         if (!isMatched)  {
             menuName = menuKey[0];
