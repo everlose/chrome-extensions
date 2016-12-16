@@ -17,4 +17,10 @@ window.onload = function () {
     food.onchange = function () {
         window.localStorage.setItem('cjdReserveFood', this.value);
     };
+
+    //屏蔽右键
+    document.oncontextmenu = function () {
+        window.event.returnValue=false;  
+        return false;
+    };
 }
