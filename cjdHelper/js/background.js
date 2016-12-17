@@ -231,3 +231,14 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     }
 });
 
+//绑定右键菜单事件
+chrome.contextMenus.create({
+    type: 'normal',
+    title: '跳转去吃几顿',
+    id: 'cjd'
+});
+chrome.contextMenus.onClicked.addListener(function (menu) {
+    if (menu.menuItemId === 'cjd') {
+        window.open('http://wos.chijidun.com/order/index.html', '_blank');
+    }
+});
