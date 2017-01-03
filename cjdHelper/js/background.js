@@ -123,26 +123,37 @@ var order = function (date) {
     .then(function (json) {
         var menu = {};
         //整合所有菜单里的菜品，塞进menu对象中.
-        if (arguments[1]) {
-            var arr = Array.prototype.slice.call(arguments);
-            arr.forEach(function (value, index) {
-                if (value) {
-                    var $menu = $(value[0].data);
-                    $menu.each(function (k, v) {
-                        var $dom = $(v);
-                        var title = $dom.find('.title').text();
-                        menu[title] = $dom.data('id');
-                    });
-                }
-            });
-        } else {
-            var $menu = $(json.data);
-            $menu.each(function (k, v) {
-                var $dom = $(v);
-                var title = $dom.find('.title').text();
-                menu[title] = $dom.data('id');
-            });
-        }
+        // if (arguments[1]) {
+        //     var arr = Array.prototype.slice.call(arguments);
+        //     arr.forEach(function (value, index) {
+        //         if (value) {
+        //             var $menu = $(value[0].data);
+        //             $menu.each(function (k, v) {
+        //                 var $dom = $(v);
+        //                 var title = $dom.find('.title').text();
+        //                 menu[title] = $dom.data('id');
+        //             });
+        //         }
+        //     });
+        // } else {
+        //     var $menu = $(json.data);
+        //     $menu.each(function (k, v) {
+        //         var $dom = $(v);
+        //         var title = $dom.find('.title').text();
+        //         menu[title] = $dom.data('id');
+        //     });
+        // }
+        var arr = Array.prototype.slice.call(arguments);
+        arr.forEach(function (value, index) {
+            if (value) {
+                var $menu = $(value[0].data);
+                $menu.each(function (k, v) {
+                    var $dom = $(v);
+                    var title = $dom.find('.title').text();
+                    menu[title] = $dom.data('id');
+                });
+            }
+        });
         //筛选过滤出喜欢的菜品，正向匹配输入的菜品和口蘑，球球，仔排；反向匹配沙拉。
         var menuKey = Object.keys(menu);
         var isMatched = false;
@@ -232,13 +243,13 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 });
 
 //绑定右键菜单事件
-chrome.contextMenus.create({
-    type: 'normal',
-    title: '跳转去吃几顿',
-    id: 'cjd'
-});
-chrome.contextMenus.onClicked.addListener(function (menu) {
-    if (menu.menuItemId === 'cjd') {
-        window.open('http://wos.chijidun.com/order/index.html', '_blank');
-    }
-});
+// chrome.contextMenus.create({
+//     type: 'normal',
+//     title: '跳转去吃几顿',
+//     id: 'cjd'
+// });
+// chrome.contextMenus.onClicked.addListener(function (menu) {
+//     if (menu.menuItemId === 'cjd') {
+//         window.open('http://wos.chijidun.com/order/index.html', '_blank');
+//     }
+// });
