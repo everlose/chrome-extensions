@@ -2,7 +2,7 @@
 #content_left > div[style^="display"],
 .result-op.xpath-log,
 .rrecom-btn-parent,
-[id="1"],
+[id="1"][srcid="1599"],
 .to_tieba{
 	height: 0px !important;
 	overflow: hidden !important;
