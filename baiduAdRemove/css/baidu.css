@@ -4,15 +4,15 @@
 .rrecom-btn-parent,
 [id="1"][srcid="1599"],
 .to_tieba{
-	height: 0px !important;
-	overflow: hidden !important;
-	padding: 0px !important;
-	margin: 0px !important;
-	color: #ffffff !important;
+    height: 0px !important;
+    overflow: hidden !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    color: #ffffff !important;
 }
 .result-op.c-container.xpath-log{
-	height: auto !important;
-	color: #000000 !important;
+    height: auto !important;
+    color: #000000 !important;
 }
 
 /*图片*/
@@ -27,7 +27,7 @@
 #back-to-top,
 .hd-paopao,
 .global-logged .footer {
-	display: none !important;
+    display: none !important;
 }
 
 /*贴吧*/
@@ -88,23 +88,23 @@
 .wgt-footer-new .footer-new,
 /*home*/
 #ftCon {
-	display: none !important;
-	height: 0px;
-	overflow: hidden;
+    display: none !important;
+    height: 0px;
+    overflow: hidden;
 }
 /*贴吧*/
 #pb_adbanner {
-	position: absolute;
-	top: -9999px;
+    position: absolute;
+    top: -9999px;
 }
 #thread_list > li[class^="thread_top_list_folder"] {
-	display: block !important;
-	height: auto !important;
-	overflow: auto !important;
+    display: block !important;
+    height: auto !important;
+    overflow: auto !important;
 }
 
 /*贴吧*/
 #j_p_postlist{
-	height: auto !important;
-	display: block !important;
+    height: auto !important;
+    display: block !important;
 }
