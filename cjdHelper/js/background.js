@@ -78,6 +78,15 @@ var deleteOrder = function (orderId) {
         }
     })
 };
+var createNotification = function (text, body, img) {
+    var notification = new Notification(text, {
+        body: body,
+        icon: img || 'http://img.souche.com/20160126/png/8b99c8a30b73ff4edba7b69ec60c3b37.png'
+    });
+    notification.onclick = function() {
+        window.open('http://wos.chijidun.com/order/index.html')
+    };
+};
 
 var order = function (date) {
     var shopName, menuName, orderId;
@@ -117,7 +126,6 @@ var order = function (date) {
             //return getMenus(shops[shopName], date);
         }
     }, function (json) {
-        console.log(json);
         return json;
     })
     .then(function (json) {
@@ -191,7 +199,6 @@ var order = function (date) {
         }
         return saveOrder(menu[menuName], date);
     }, function (json) {
-        console.log(json);
         return json;
     })
     .then(function (json) {
@@ -200,26 +207,17 @@ var order = function (date) {
             orderId = json.result;
             window.localStorage.setItem('cjdOrderDate', date)
             window.localStorage.setItem('cjdOrderMenu', menuName);
-            var notification = new Notification('恭喜你订餐成功', {
-                body: '你订了' + menuName,
-                icon: 'http://img.souche.com/20160126/png/8b99c8a30b73ff4edba7b69ec60c3b37.png'
-            });
-            notification.onclick = function() {
-                window.open('http://wos.chijidun.com/order/index.html')
-            };
+            createNotification('恭喜你订餐成功', '你订了' + menuName);
         } else {
-            var notification = new Notification('订单失败', {
-                body: '点击这里手动订菜吧',
-                icon: 'http://img.souche.com/20160126/png/8b99c8a30b73ff4edba7b69ec60c3b37.png'
-            });
             window.localStorage.setItem('cjdOrderDate', date)
             window.localStorage.setItem('cjdOrderMenu', '暂无订单');
-            notification.onclick = function() {
-                window.open('http://wos.chijidun.com/order/index.html')
-            };
+            createNotification('点餐失败', '点击这里手动订菜吧');
         }
     }, function (json) {
         console.log(json);
+        if (json.responseText.indexOf('login.html') > -1) {
+            createNotification('点餐失败', '你需要重新登录了呢！');
+        }
     });
 };
 
