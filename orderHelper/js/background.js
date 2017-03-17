@@ -89,11 +89,13 @@ var createNotification = function (text, body, img) {
 };
 
 var orderFn = function (day) {
+    tabUniqueId = window.localStorage.getItem('tabUniqueId');
+    dishId = window.localStorage.getItem('dishId');
     var obj = {
         corpAddressUniqueId: 'e5606ba8d703',
-        order: JSON.stringify([{"count":1,"dishId":68284814}]),
-        tabUniqueId: 'ae84364a-d14e-475b-ae01-e2896c60efb9',
-        targetTime: '2017-03-16 16:30',
+        order: JSON.stringify([{"count":1,"dishId":dishId}]),
+        tabUniqueId: tabUniqueId,
+        targetTime: day + ' 16:30',
         userAddressUniqueId: 'e5606ba8d703'
     };
 
@@ -110,11 +112,12 @@ var orderFn = function (day) {
         contentType: 'application/json; charset=utf-8',
     })
     .then(function (d) {
-        window.localStorage.setItem('orderDate', day)
-        window.localStorage.setItem('orderMenu', '照烧鸡肉饭');
-        createNotification('恭喜你订餐成功', '你订了' + '照烧鸡肉饭');
+        window.localStorage.setItem('orderDate', day);
+        window.localStorage.setItem('orderMenu', 'xx饭');
+        createNotification('恭喜你订餐成功');
     }, function (d) {
         createNotification('订餐失败', d.error_description);
+        window.localStorage.setItem('orderDate', day);
     });
 };
 

@@ -4,12 +4,31 @@
     <meta charset="UTF-8">
     <title>点餐助手提示</title>
     <style>
+        #tip {
+            color: green;
+        }
         .meal {
             width: 400px;
+        }
+        .input {
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
-    <p class="meal">点餐！！</p>
+	<p>下面内容必填，必须知道用户凭证与菜品ID，否则请求发送失败</p>
+	<div class="meal">
+        此脚本自动替您订下的餐是：<span id="tip"></span>
+    </div>
+    <div class="input" id="user">
+        输入匹配你的用户凭证：<input type="text">
+    </div>
+    <div class="input" id="food">
+        输入匹配的菜名ID：<input type="text">
+    </div>
+    <p>
+    	需要注意的是，这个弹层仅仅只是说明了此脚本自动替您订下的餐，如果你更改了你订的餐，那么此弹层上显示的就与你实际的餐不一致。
+    </p>
+    <script src="../js/popup.js"></script>
 </body>
 </html>
