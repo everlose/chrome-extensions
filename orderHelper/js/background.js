@@ -89,8 +89,8 @@ var createNotification = function (text, body, img) {
 };
 
 var orderFn = function (day) {
-    tabUniqueId = window.localStorage.getItem('tabUniqueId');
-    dishId = window.localStorage.getItem('dishId');
+    var tabUniqueId = window.localStorage.getItem('tabUniqueId');
+    var dishId = window.localStorage.getItem('dishId');
     var obj = {
         corpAddressUniqueId: 'e5606ba8d703',
         order: JSON.stringify([{"count":1,"dishId":dishId}]),
@@ -112,9 +112,13 @@ var orderFn = function (day) {
         contentType: 'application/json; charset=utf-8',
     })
     .then(function (d) {
+        if (d.status === 'SUCCESSFUL') {
+            createNotification('恭喜你订餐成功', d.order.uniqueId);
+        } else {
+            createNotification('订餐失败', d.message);
+        }
         window.localStorage.setItem('orderDate', day);
         window.localStorage.setItem('orderMenu', 'xx饭');
-        createNotification('恭喜你订餐成功');
     }, function (d) {
         createNotification('订餐失败', d.error_description);
         window.localStorage.setItem('orderDate', day);
